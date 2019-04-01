@@ -19,7 +19,6 @@ public class CheeseData {
         Cheese cheeseToRemove = getById(id);
         cheeses.remove(cheeseToRemove);
     }
-
     //get by id
     public static Cheese getById(int id){
         Cheese matchingCheese;

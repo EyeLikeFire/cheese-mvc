@@ -1,6 +1,7 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.CheeseData;
+import org.launchcode.models.CheeseType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -33,6 +34,7 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
+        model.addAttribute("cheeseTypes", CheeseType.values());
         return "cheese/add";
 
     }
@@ -74,19 +76,19 @@ public class CheeseController {
 
         Cheese cheese = CheeseData.getById(cheeseId);
         model.addAttribute(cheese);
-        /*
-        model.addAttribute("cheeseId", cheese.getCheeseId());
-        model.addAttribute("name", cheese.getName());
-        model.addAttribute("description", cheese.getDescription());
-        */
+        model.addAttribute("cheeseTypes", CheeseType.values());
+
+
         return "cheese/edit";
     }
 
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.POST)
-    public  String processEditForm(int cheeseId, String name, String description){
+    public  String processEditForm(int cheeseId, String name, String description, CheeseType type){
         Cheese cheese = CheeseData.getById(cheeseId);
         cheese.setName(name);
         cheese.setDescription(description);
+
+        cheese.setType(type);
 
 
         return "redirect:/cheese";
